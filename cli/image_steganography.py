@@ -1,9 +1,8 @@
 from PIL import Image
 import numpy as np
-import random
 
 
-SAMPLE_IMAGE_PATH = "IMG_5831.jpg"
+SAMPLE_IMAGE_PATH = "./fatdude.png"
 SAMPLE_TXT = "hidden_text"
 OUTPUT_IMAGE_PATH = "encoded_image.png"
 SEED = 1
