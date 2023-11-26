@@ -163,3 +163,4 @@ app.build/
 app.dist/
 app.onefile-build/
 .idea/
+.DS_Store
