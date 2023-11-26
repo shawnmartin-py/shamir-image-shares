@@ -23,7 +23,7 @@ def validate_seed_words(seed_phrase: str, *, wordlist: list[str]) -> None:
 
 @click.group()
 def cli():
-    pass
+    print("running cli")
 
 
 @cli.command()

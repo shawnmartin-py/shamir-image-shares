@@ -1,0 +1,71 @@
+[2023-11-26T09:24:06.500094 4530 ] === CCACHE master.971f1183 STARTED =========================================
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) absolute_paths_in_stderr = false
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) base_dir = 
+[2023-11-26T09:24:06.500094 4530 ] Config: (environment) cache_dir = /Users/shawnmartin/Library/Caches/Nuitka/ccache
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) compiler = 
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) compiler_check = mtime
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) compiler_type = auto
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) compression = true
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) compression_level = 0
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) cpp_extension = 
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) debug = false
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) debug_dir = 
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) depend_mode = false
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) direct_mode = true
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) disable = false
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) extra_files_to_hash = 
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) file_clone = false
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) hard_link = false
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) hash_dir = true
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) ignore_headers_in_manifest = 
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) ignore_options = 
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) inode_cache = false
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) keep_comments_cpp = false
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) limit_multiple = 0.8
+[2023-11-26T09:24:06.500094 4530 ] Config: (environment) log_file = /Users/shawnmartin/projects/python/shamir_image_shares/app.onefile-build/ccache-4528.txt
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) max_files = 0
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) max_size = 5.0G
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) path = 
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) pch_external_checksum = false
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) prefix_command = 
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) prefix_command_cpp = 
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) read_only = false
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) read_only_direct = false
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) recache = false
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) run_second_cpp = true
+[2023-11-26T09:24:06.500094 4530 ] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) stats = true
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) temporary_dir = /Users/shawnmartin/Library/Caches/Nuitka/ccache/tmp
+[2023-11-26T09:24:06.500094 4530 ] Config: (default) umask = 
+[2023-11-26T09:24:06.500383 4530 ] Command line: /Users/shawnmartin/Library/Caches/Nuitka/downloads/ccache/v4.2.1/ccache /usr/bin/clang -o static_src/OnefileBootstrap.o -c -flto -std=c11 -fvisibility=hidden -fwrapv -pipe -w -fvisibility=hidden -fvisibility-inlines-hidden --target=arm64-apple-macos14.0 -O3 -D_XOPEN_SOURCE -D__NUITKA_NO_ASSERT__ -D_NUITKA_ONEFILE_MODE -D_NUITKA_PAYLOAD_FROM_MACOS_SECTION -D_NUITKA_CONSTANTS_FROM_MACOS_SECTION -I. -I/Users/shawnmartin/Library/Caches/pypoetry/virtualenvs/shamir-image-shares-902h6cYh-py3.11/lib/python3.11/site-packages/nuitka/build/include -I/Users/shawnmartin/Library/Caches/pypoetry/virtualenvs/shamir-image-shares-902h6cYh-py3.11/lib/python3.11/site-packages/nuitka/build/static_src -I/Users/shawnmartin/Library/Caches/pypoetry/virtualenvs/shamir-image-shares-902h6cYh-py3.11/lib/python3.11/site-packages/nuitka/build/inline_copy/zstd static_src/OnefileBootstrap.c
+[2023-11-26T09:24:06.500394 4530 ] Hostname: MacBook-Pro-2.local
+[2023-11-26T09:24:06.500399 4530 ] Working directory: /Users/shawnmartin/projects/python/shamir_image_shares/app.onefile-build
+[2023-11-26T09:24:06.500414 4530 ] Compiler type: clang
+[2023-11-26T09:24:06.500723 4530 ] Source file: static_src/OnefileBootstrap.c
+[2023-11-26T09:24:06.500729 4530 ] Object file: static_src/OnefileBootstrap.o
+[2023-11-26T09:24:06.500969 4530 ] Trying direct lookup
+[2023-11-26T09:24:06.501206 4530 ] No manifest with name b959f1q7ockdtnbqo42h50nsl8qse9k7o in the cache
+[2023-11-26T09:24:06.501506 4530 ] Running preprocessor
+[2023-11-26T09:24:06.501516 4530 ] Executing /usr/bin/clang -flto -std=c11 -fvisibility=hidden -fwrapv -pipe -w -fvisibility=hidden -fvisibility-inlines-hidden --target=arm64-apple-macos14.0 -O3 -D_XOPEN_SOURCE -D__NUITKA_NO_ASSERT__ -D_NUITKA_ONEFILE_MODE -D_NUITKA_PAYLOAD_FROM_MACOS_SECTION -D_NUITKA_CONSTANTS_FROM_MACOS_SECTION -I. -I/Users/shawnmartin/Library/Caches/pypoetry/virtualenvs/shamir-image-shares-902h6cYh-py3.11/lib/python3.11/site-packages/nuitka/build/include -I/Users/shawnmartin/Library/Caches/pypoetry/virtualenvs/shamir-image-shares-902h6cYh-py3.11/lib/python3.11/site-packages/nuitka/build/static_src -I/Users/shawnmartin/Library/Caches/pypoetry/virtualenvs/shamir-image-shares-902h6cYh-py3.11/lib/python3.11/site-packages/nuitka/build/inline_copy/zstd -E static_src/OnefileBootstrap.c
+[2023-11-26T09:24:06.810256 4530 ] Got result name from preprocessor
+[2023-11-26T09:24:06.810301 4530 ] No result with name 3eeahcnak7cuvqf9hsmc9p9q4hoe5011g in the cache
+[2023-11-26T09:24:06.810312 4530 ] Running real compiler
+[2023-11-26T09:24:06.810452 4530 ] Executing /usr/bin/clang -flto -std=c11 -fvisibility=hidden -fwrapv -pipe -w -fvisibility=hidden -fvisibility-inlines-hidden --target=arm64-apple-macos14.0 -O3 -D_XOPEN_SOURCE -D__NUITKA_NO_ASSERT__ -D_NUITKA_ONEFILE_MODE -D_NUITKA_PAYLOAD_FROM_MACOS_SECTION -D_NUITKA_CONSTANTS_FROM_MACOS_SECTION -I. -I/Users/shawnmartin/Library/Caches/pypoetry/virtualenvs/shamir-image-shares-902h6cYh-py3.11/lib/python3.11/site-packages/nuitka/build/include -I/Users/shawnmartin/Library/Caches/pypoetry/virtualenvs/shamir-image-shares-902h6cYh-py3.11/lib/python3.11/site-packages/nuitka/build/static_src -I/Users/shawnmartin/Library/Caches/pypoetry/virtualenvs/shamir-image-shares-902h6cYh-py3.11/lib/python3.11/site-packages/nuitka/build/inline_copy/zstd -c -fcolor-diagnostics -o static_src/OnefileBootstrap.o static_src/OnefileBootstrap.c
+[2023-11-26T09:24:08.475160 4530 ] Using default compression level 1
+[2023-11-26T09:24:08.475639 4530 ] Storing result static_src/OnefileBootstrap.o
+[2023-11-26T09:24:08.475655 4530 ] Storing embedded file #0 .o (170784 bytes) from static_src/OnefileBootstrap.o
+[2023-11-26T09:24:08.476810 4530 ] Stored in cache: /Users/shawnmartin/Library/Caches/Nuitka/ccache/3/e/eahcnak7cuvqf9hsmc9p9q4hoe5011gR
+[2023-11-26T09:24:08.476849 4530 ] Adding result name to /Users/shawnmartin/Library/Caches/Nuitka/ccache/b/9/59f1q7ockdtnbqo42h50nsl8qse9k7oM
+[2023-11-26T09:24:08.477741 4530 ] Using default compression level 1
+[2023-11-26T09:24:08.478060 4530 ] Result: cache miss
+[2023-11-26T09:24:08.478267 4530 ] Acquired lock /Users/shawnmartin/Library/Caches/Nuitka/ccache/b/stats.lock
+[2023-11-26T09:24:08.478661 4530 ] Releasing lock /Users/shawnmartin/Library/Caches/Nuitka/ccache/b/stats.lock
+[2023-11-26T09:24:08.478691 4530 ] Unlink /Users/shawnmartin/Library/Caches/Nuitka/ccache/b/stats.lock
+[2023-11-26T09:24:08.478731 4530 ] Acquired lock /Users/shawnmartin/Library/Caches/Nuitka/ccache/3/stats.lock
+[2023-11-26T09:24:08.479003 4530 ] Releasing lock /Users/shawnmartin/Library/Caches/Nuitka/ccache/3/stats.lock
+[2023-11-26T09:24:08.479026 4530 ] Unlink /Users/shawnmartin/Library/Caches/Nuitka/ccache/3/stats.lock
+[2023-11-26T09:24:08.479049 4530 ] Unlink /Users/shawnmartin/Library/Caches/Nuitka/ccache/tmp/tmp.stderr.OPiXo9
+[2023-11-26T09:24:08.479069 4530 ] Unlink /Users/shawnmartin/Library/Caches/Nuitka/ccache/tmp/tmp.stdout.x5DyR6
+[2023-11-26T09:24:08.479093 4530 ] Unlink /Users/shawnmartin/Library/Caches/Nuitka/ccache/tmp/tmp.cpp_stderr.NPrvms
+[2023-11-26T09:24:08.479142 4530 ] Unlink /Users/shawnmartin/Library/Caches/Nuitka/ccache/tmp/tmp.cpp_stdout.rsh9Kl.i
+[2023-11-26T09:24:08.479194 4530 ] Unlink /Users/shawnmartin/Library/Caches/Nuitka/ccache/tmp/tmp.cpp_stdout.rsh9Kl
