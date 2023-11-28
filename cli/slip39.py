@@ -6,7 +6,16 @@ from typing import Generator, Sequence
 
 from bip_utils import Bip39MnemonicGenerator, Bip39MnemonicDecoder
 
-from cli.shamir_mnemonic_ import generate_mnemonics, combine_mnemonics
+from cli.shamir_mnemonic_ import (
+    generate_mnemonics,
+    combine_mnemonics,
+    BIP_39_WORDLIST,
+    SLIP39_WORDLIST,
+)
+
+
+assert len(BIP_39_WORDLIST) == 2048
+assert len(SLIP39_WORDLIST) == 1024
 
 
 GROUP_THRESHOLD = 2

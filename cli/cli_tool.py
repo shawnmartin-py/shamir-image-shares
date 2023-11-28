@@ -1,10 +1,10 @@
 from itertools import repeat
 
 from PIL import Image
-from mnemonic import Mnemonic
 import click
 
 from cli.slip39 import (
+    BIP_39_WORDLIST,
     generate_random_seed_phrase,
     transform_mnemonic,
     reverse_transform_mnemonic,
@@ -35,7 +35,7 @@ def cli():
 @click.option("--seed", "-s", default=None)
 @click.option("--password", "-p", default="")
 def generate(seed: str | None, password: str):
-    wordlist = Mnemonic("english").wordlist
+    wordlist = list(BIP_39_WORDLIST)
     try:
         if seed:
             validate_seed_words(seed, wordlist=wordlist)

@@ -6,7 +6,7 @@ from .wordlist_data import SLIP39_WORDLIST
 
 
 def _load_wordlist() -> tuple[list[str], dict[str, int]]:
-    wordlist = SLIP39_WORDLIST.copy()
+    wordlist = list(SLIP39_WORDLIST)
     if len(wordlist) != RADIX:
         raise ImportError(
             f"The wordlist should contain {RADIX} words, but it contains "
