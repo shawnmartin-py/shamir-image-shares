@@ -14,7 +14,7 @@ from cli.slip39 import (
 from cli.image_steganography import encode_image, decode_image
 
 
-GROUPS = tuple(*repeat((2, 2), 2), *repeat((1, 1), 5))
+GROUPS = tuple(repeat((2, 2), 2)) + tuple(repeat((1, 1), 5))
 
 
 def validate_seed_words(seed_phrase: str, *, wordlist: list[str]) -> None:
