@@ -1,8 +1,8 @@
-from itertools import combinations, repeat
+from itertools import combinations
 from math import comb
 import string
 import random
-from typing import Generator
+from typing import Generator, Sequence
 
 from bip_utils import Bip39MnemonicGenerator, Bip39MnemonicDecoder
 
@@ -10,7 +10,7 @@ from cli.shamir_mnemonic_ import generate_mnemonics, combine_mnemonics
 
 
 GROUP_THRESHOLD = 2
-GROUPS = [*repeat((2, 2), 2), *repeat((1, 1), 5)]
+GROUPS = ((1, 1), (1, 1), (1, 1), (1, 1))
 
 
 def _seed_to_bytes(seed: str) -> bytes:
@@ -21,10 +21,16 @@ def _bytes_to_seed(seed_bytes: bytes) -> str:
     return str(Bip39MnemonicGenerator().FromEntropy(seed_bytes))
 
 
-def transform_mnemonic(original_seed: str, password: str = "") -> list[list[str]]:
+def transform_mnemonic(
+        original_seed: str,
+        password: str = "",
+        group_threshold: int = GROUP_THRESHOLD,
+        groups: Sequence[tuple[int, int]] = GROUPS,
+) -> list[list[str]]:
+    print("Hex: ", _seed_to_bytes(original_seed).hex())
     return generate_mnemonics(
-        group_threshold=GROUP_THRESHOLD,
-        groups=GROUPS,
+        group_threshold=group_threshold,
+        groups=groups,
         master_secret=_seed_to_bytes(original_seed),
         passphrase=password.encode("UTF-8"),
     )

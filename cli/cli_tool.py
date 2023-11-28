@@ -1,3 +1,5 @@
+from itertools import repeat
+
 from PIL import Image
 from mnemonic import Mnemonic
 import click
@@ -12,6 +14,9 @@ from cli.slip39 import (
 from cli.image_steganography import encode_image, decode_image
 
 
+GROUPS = tuple(*repeat((2, 2), 2), *repeat((1, 1), 5))
+
+
 def validate_seed_words(seed_phrase: str, *, wordlist: list[str]) -> None:
     words = seed_phrase.split()
     word_count = len(words)
@@ -23,7 +28,7 @@ def validate_seed_words(seed_phrase: str, *, wordlist: list[str]) -> None:
 
 @click.group()
 def cli():
-    print("running cli")
+    print("CLI Running")
 
 
 @cli.command()
@@ -37,7 +42,7 @@ def generate(seed: str | None, password: str):
         else:
             seed = generate_random_seed_phrase()
             print("Generated seed phrase:", seed)
-        shares = transform_mnemonic(seed, password)
+        shares = transform_mnemonic(seed, password, groups=GROUPS)
         validate_mnemonics_reversibility(shares, original_seed=seed, password=password)
         print_shares(*shares)
     except ValueError as e:
