@@ -5,6 +5,7 @@ import random
 from typing import Generator, Sequence
 
 from bip_utils import Bip39MnemonicGenerator, Bip39MnemonicDecoder
+from bip_utils import Bip39Languages
 
 from cli.shamir_mnemonic_ import (
     generate_mnemonics,
@@ -23,7 +24,7 @@ GROUPS = ((1, 1), (1, 1), (1, 1), (1, 1))
 
 
 def _seed_to_bytes(seed: str) -> bytes:
-    return Bip39MnemonicDecoder().Decode(seed)
+    return Bip39MnemonicDecoder(Bip39Languages.ENGLISH).Decode(seed)
 
 
 def _bytes_to_seed(seed_bytes: bytes) -> str:

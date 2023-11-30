@@ -9,3 +9,5 @@
 
 # Guide for Encoding and Decoding Text in an Image
 ## Encoding Text into an Image
+
+`python -m nuitka --onefile --standalone --include-data-file=wordlist.txt=./bip_utils/bip/bip39/wordlist/english.txt app.py`

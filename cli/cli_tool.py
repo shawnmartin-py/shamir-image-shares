@@ -50,11 +50,11 @@ def generate(seed: str | None, password: str):
 
 
 @cli.command()
-@click.option("--share", "-s", multiple=True, required=True)
-@click.option("--password", "-p", required=True)
-def combine(mnemonics: list[str], password: str):
+@click.option("--shares", "-s", multiple=True, required=True)
+@click.option("--password", "-p", required=True, default="")
+def combine(shares: list[str], password: str):
     try:
-        original_seed = reverse_transform_mnemonic(mnemonics, password)
+        original_seed = reverse_transform_mnemonic(shares, password)
         print("Original seed phrase: ", original_seed)
     except ValueError as e:
         click.echo(f"Error: {e}", err=True)
