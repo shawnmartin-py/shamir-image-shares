@@ -9,4 +9,4 @@ COPY . .
 RUN poetry config virtualenvs.create false \
     && poetry install --no-dev --no-interaction --no-ansi
 
-CMD ["python", "-m", "cli"]
+CMD ["tail", "-f", "/dev/null"]

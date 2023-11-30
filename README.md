@@ -2,7 +2,8 @@
 
 1. `docker build -t cli-tool .`
 2. `docker network create --internal no-internet`
-3. `docker run --network no-internet cli-tool`
+3. `docker run -d --network no-internet --name cli-tool cli-tool`
+4. `docker exec cli-tool python app.py`
 
 - use `docker cp <origin> <destination>` to copy files to and from the container
 - docker location should be: cli-tool:/usr/src/app
