@@ -37,7 +37,6 @@ def transform_mnemonic(
         group_threshold: int = GROUP_THRESHOLD,
         groups: Sequence[tuple[int, int]] = GROUPS,
 ) -> list[list[str]]:
-    print("Hex: ", _seed_to_bytes(original_seed).hex())
     return generate_mnemonics(
         group_threshold=group_threshold,
         groups=groups,

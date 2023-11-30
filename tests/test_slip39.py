@@ -1,4 +1,6 @@
 from itertools import combinations
+import math
+
 import pytest
 
 from cli.slip39 import (
@@ -9,12 +11,30 @@ from cli.slip39 import (
 )
 from cli.shamir_mnemonic_.utils import MnemonicError
 
-TEST_ITERATIONS = 100
+TEST_ITERATIONS = 500
 
 
-def test_encryption_decryption(num_tests=TEST_ITERATIONS):
+test_params = list(
+    zip(
+        [
+            ((1, 1), (1, 1), (1, 1), (1, 1)),
+            ((2, 2), (2, 2), (1, 1), (1, 1), (1, 1), (1, 1), (1, 1)),
+            ((1, 1), (1, 1), (1, 1)),
+        ],
+        [
+            2, 2, 1,
+        ],
+    )
+)
+
+
+@pytest.mark.parametrize("groups, threshold", test_params)
+def test_encryption_decryption(
+    groups,
+    threshold,
+    num_tests=TEST_ITERATIONS,
+):
     combinations_tested = 0
-    asserts_run = 0
     transformed_seed_phrase: list[list[str]] = []
     for _ in range(num_tests):
         seed_phrase = generate_random_seed_phrase()
@@ -22,10 +42,11 @@ def test_encryption_decryption(num_tests=TEST_ITERATIONS):
         transformed_seed_phrase = transform_mnemonic(
             seed_phrase,
             password,
+            group_threshold=threshold,
+            groups=groups,
         )
         for selected_transformed_seed_phrase in combinations(
-                transformed_seed_phrase, 2):
-            combinations_tested += 1
+                transformed_seed_phrase, threshold):
             flattened_transformed_seed_phrase = [
                 item for sublist in selected_transformed_seed_phrase
                 for item in sublist
@@ -38,15 +59,23 @@ def test_encryption_decryption(num_tests=TEST_ITERATIONS):
                 f"Test failed for Seed: '{seed_phrase}' with password: {password}\n"
                 f"Decrypted Seed Phrase: '{decrypted_seed_phrase}'"
             )
-            asserts_run += 1
-    assert combinations_tested == num_tests * len(transformed_seed_phrase) * (
-            len(transformed_seed_phrase) - 1) / 2
-    assert bool(asserts_run)
-    assert asserts_run == combinations_tested
+            combinations_tested += 1
+    print()
+    expected_combinations = math.comb(len(transformed_seed_phrase), threshold)
+    print(f"Expected combinations: {expected_combinations}")
+    assert bool(combinations_tested)
+    assert TEST_ITERATIONS * expected_combinations == combinations_tested
 
 
-def test_single_share_insufficient(num_tests=TEST_ITERATIONS):
-    tests_run = 0
+@pytest.mark.parametrize("groups, threshold", test_params)
+def test_single_share_insufficient(
+        groups,
+        threshold,
+        num_tests=TEST_ITERATIONS * 5,
+):
+    if threshold == 1:
+        return
+    combinations_tested = 0
     transformed_seed_phrase: list[list[str]] = []
     for _ in range(num_tests):
         seed_phrase = generate_random_seed_phrase()
@@ -54,6 +83,8 @@ def test_single_share_insufficient(num_tests=TEST_ITERATIONS):
         transformed_seed_phrase = transform_mnemonic(
             seed_phrase,
             password,
+            group_threshold=threshold,
+            groups=groups,
         )
         for single_share in transformed_seed_phrase:
             with pytest.raises(MnemonicError):
@@ -65,32 +96,52 @@ def test_single_share_insufficient(num_tests=TEST_ITERATIONS):
                     f"Test failed for Seed: '{seed_phrase}' with password: {password}\n"
                     f"Decrypted Seed Phrase: '{decrypted_seed_phrase}'"
                 )
-            tests_run += 1
-    assert bool(tests_run)
-    assert tests_run == num_tests * len(transformed_seed_phrase)
+            combinations_tested += 1
+    print()
+    expected_combinations = len(transformed_seed_phrase)
+    print(f"Expected combinations: {expected_combinations}")
+    assert bool(combinations_tested)
+    assert num_tests * expected_combinations == combinations_tested
 
 
-def test_fails_with_different_password(num_tests=TEST_ITERATIONS):
-    tests_run = 0
+@pytest.mark.parametrize("groups, threshold", test_params)
+def test_fails_with_different_password(
+    groups,
+    threshold,
+    num_tests=TEST_ITERATIONS // 10,
+):
+    passwords_to_try = 10
+    combinations_tested = 0
+    transformed_seed_phrase: list[list[str]] = []
     for _ in range(num_tests):
         seed_phrase = generate_random_seed_phrase()
         password = generate_random_password()
         transformed_seed_phrase = transform_mnemonic(
             seed_phrase,
             password,
+            group_threshold=threshold,
+            groups=groups,
         )
-        selected_transformed_seed_phrase = transformed_seed_phrase[:2]
-        flattened_transformed_seed_phrase = [
-            item for sublist in selected_transformed_seed_phrase for item in sublist
-        ]
-        decrypted_seed_phrase = reverse_transform_mnemonic(
-            flattened_transformed_seed_phrase,
-            password + "a",
-        )
-        assert seed_phrase != decrypted_seed_phrase, (
-            f"Test failed for Seed: '{seed_phrase}' with password: {password}\n"
-            f"Decrypted Seed Phrase: '{decrypted_seed_phrase}'"
-        )
-        tests_run += 1
-    assert bool(tests_run)
-    assert tests_run == num_tests
+        for selected_transformed_seed_phrase in combinations(
+                transformed_seed_phrase, threshold):
+            flattened_transformed_seed_phrase = [
+                item for sublist in selected_transformed_seed_phrase
+                for item in sublist
+            ]
+
+            for _ in range(passwords_to_try):
+                wrong_password = generate_random_password()
+                decrypted_seed_phrase = reverse_transform_mnemonic(
+                    flattened_transformed_seed_phrase,
+                    wrong_password,
+                )
+                assert seed_phrase != decrypted_seed_phrase, (
+                    f"Test failed for Seed: '{seed_phrase}' with password: {password}\n"
+                    f"Decrypted Seed Phrase: '{decrypted_seed_phrase}'"
+                )
+                combinations_tested += 1
+    print()
+    expected_combinations = math.comb(len(transformed_seed_phrase), threshold)
+    print(f"Expected combinations: {expected_combinations}")
+    assert bool(combinations_tested)
+    assert num_tests * passwords_to_try * expected_combinations == combinations_tested

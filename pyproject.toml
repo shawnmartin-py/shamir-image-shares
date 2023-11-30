@@ -17,3 +17,7 @@ requests = "^2.31.0"
 numpy = "^1.26.2"
 attrs = "^23.1.0"
 nuitka = "1.8.6"
+pytest-xdist = "^3.5.0"
+
+[tool.pytest.ini_options]
+addopts = "-n 8"
