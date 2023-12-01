@@ -2,12 +2,6 @@ from PIL import Image
 import numpy as np
 
 
-SAMPLE_IMAGE_PATH = "./fatdude.png"
-SAMPLE_TXT = "hidden_text"
-OUTPUT_IMAGE_PATH = "encoded_image.png"
-SEED = 1
-
-
 def text_to_bin(text: str) -> str:
     return "".join(format(ord(c), "08b") for c in text)
 
@@ -63,13 +57,18 @@ def decode_image(image: Image, seed: int | None = None):
 
 
 if __name__ == "__main__":
-    img = Image.open(SAMPLE_IMAGE_PATH)
+    import os
 
-    encoded_img = encode_image(SAMPLE_TXT, img)
-    encoded_img.save(OUTPUT_IMAGE_PATH)
+    sample_image_path = "../tests/test_images/fatdude.png"
+    sample_text = "hidden_text"
+    output_image_path = "../encoded_image.png"
 
-    encoded_img_loaded = Image.open(OUTPUT_IMAGE_PATH)
-
+    img = Image.open(sample_image_path)
+    encoded_img = encode_image(sample_text, img)
+    encoded_img.save(output_image_path)
+    encoded_img_loaded = Image.open(output_image_path)
     decoded_text = decode_image(encoded_img_loaded)
-    assert SAMPLE_TXT == decoded_text, "text is different"
+
+    assert sample_text == decoded_text, "text is different"
     print(decoded_text)
+    os.remove(output_image_path)
