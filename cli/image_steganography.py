@@ -26,13 +26,11 @@ def encode_image(text: str, image: Image, seed: int | None = None):
     else:
         pixel_indices = range(total_pixels)
         channel = 2
-    index = 0
-    for idx in pixel_indices:
+    for index, pixel_idx in enumerate(pixel_indices):
         if index < len(binary):
-            i = idx // pixels.shape[1]
-            j = idx % pixels.shape[1]
+            i = pixel_idx // pixels.shape[1]
+            j = pixel_idx % pixels.shape[1]
             pixels[i, j, channel] = (pixels[i, j, channel] & ~1) | int(binary[index])
-            index += 1
     return Image.fromarray(pixels)
 
 
