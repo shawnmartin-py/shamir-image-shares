@@ -95,8 +95,15 @@ def encode_text_in_image(text: str, input_image: str, output_image: str, seed: s
 
 
 @cli.command()
-@click.option("--input_image", "-i", required=True)
-@click.option("--seed", "-s")
+@click.argument("input_image", required=True)
+@click.option(
+    "--seed",
+    "-s",
+    prompt=True,
+    hide_input=True,
+    confirmation_prompt=True,
+    default="",
+)
 def decode_text_from_image(input_image: str, seed: str):
     range_seed = parse_seed_to_int(seed)
     encoded_img_loaded = Image.open(input_image)
