@@ -28,7 +28,7 @@ def validate_seed_words(seed_phrase: str, *, wordlist: list[str]) -> None:
 
 @click.group()
 def cli():
-    print("CLI Running")
+    print("Running...")
 
 
 @cli.command()
@@ -61,29 +61,33 @@ def combine(password: str):
             break
     if not shares:
         raise click.UsageError("No shares provided.")
-
     original_seed = reverse_transform_mnemonic(shares, password)
     print("Original seed phrase: ", original_seed)
 
 
 @cli.command()
-@click.option("--text", "-t", required=True)
+@click.option("--text", "-t", required=True, prompt=True, hide_input=True)
 @click.option("--input_image", "-i", required=True)
 @click.option("--output_image", "-o", required=True)
-@click.option("--seed", "-s")
-def encode_text_in_image(
-    text: str, input_image: str, output_image: str, seed: str | None = None
-):
+@click.option(
+    "--seed",
+    "-s",
+    prompt=True,
+    hide_input=True,
+    confirmation_prompt=True,
+    default="",
+)
+def encode_text_in_image(text: str, input_image: str, output_image: str, seed: str):
     try:
-        image = Image.open(input_image)
         seed_int = int(seed) if seed else None
-        encoded_img = encode_image(text, image, seed_int)
-        encoded_img.save(output_image)
-        encoded_img_loaded = Image.open(output_image)
-        decoded_text = decode_image(encoded_img_loaded, seed_int)
-        assert text == decoded_text, "text is different"
-    except ValueError as e:
-        click.echo(f"Error: {e}", err=True)
+    except ValueError:
+        raise click.UsageError("Seed must be an integer")
+    image = Image.open(input_image)
+    encoded_img = encode_image(text=text, image=image, seed=seed_int)
+    encoded_img.save(output_image)
+    encoded_img_loaded = Image.open(output_image)
+    decoded_text = decode_image(image=encoded_img_loaded, seed=seed_int)
+    assert text == decoded_text, "Was not able to encode and decode the text"
 
 
 @cli.command()
@@ -93,7 +97,7 @@ def decode_text_from_image(input_image: str, seed: int | None = None):
     try:
         seed_int = int(seed) if seed else None
         encoded_img_loaded = Image.open(input_image)
-        decoded_text = decode_image(encoded_img_loaded, seed_int)
+        decoded_text = decode_image(image=encoded_img_loaded, seed=seed_int)
         print(decoded_text)
     except ValueError as e:
         click.echo(f"Error: {e}", err=True)

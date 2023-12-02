@@ -13,7 +13,7 @@ def bin_to_text(binary) -> str:
     return text
 
 
-def encode_image(text: str, image: Image, seed: int | None = None):
+def encode_image(*, text: str, image: Image, seed: int | None = None):
     binary = text_to_bin(text) + "1111111111111110"
     pixels = np.array(image)
     total_pixels = pixels.shape[0] * pixels.shape[1]
@@ -34,7 +34,7 @@ def encode_image(text: str, image: Image, seed: int | None = None):
     return Image.fromarray(pixels)
 
 
-def decode_image(image: Image, seed: int | None = None):
+def decode_image(*, image: Image, seed: int | None = None):
     pixels = np.array(image)
     binary = ""
     total_pixels = pixels.shape[0] * pixels.shape[1]
@@ -62,10 +62,10 @@ if __name__ == "__main__":
     output_image_path = "../encoded_image.png"
 
     img = Image.open(sample_image_path)
-    encoded_img = encode_image(sample_text, img)
+    encoded_img = encode_image(text=sample_text, image=img)
     encoded_img.save(output_image_path)
     encoded_img_loaded = Image.open(output_image_path)
-    decoded_text = decode_image(encoded_img_loaded)
+    decoded_text = decode_image(image=encoded_img_loaded)
 
     assert sample_text == decoded_text, "text is different"
     print(decoded_text)

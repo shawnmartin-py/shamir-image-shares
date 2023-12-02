@@ -32,6 +32,6 @@ def test_bin_to_text():
 
 def test_encode_decode_image(image_and_seeds):
     img, seed_for_encoding, text = image_and_seeds
-    encoded_img = encode_image(text, img, seed_for_encoding)
-    decoded_text = decode_image(encoded_img, seed_for_encoding)
+    encoded_img = encode_image(text=text, image=img, seed=seed_for_encoding)
+    decoded_text = decode_image(image=encoded_img, seed=seed_for_encoding)
     assert decoded_text == text
