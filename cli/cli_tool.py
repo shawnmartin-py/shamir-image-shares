@@ -21,9 +21,9 @@ def validate_seed_words(seed_phrase: str, *, wordlist: list[str]) -> None:
     words = seed_phrase.split()
     word_count = len(words)
     if word_count not in [12, 18, 24]:
-        raise ValueError("Seed phrase must contain 12, 18, or 24 words.")
+        raise click.UsageError("Seed phrase must contain 12, 18, or 24 words.")
     if not all(word in wordlist for word in words):
-        raise ValueError("Seed phrase contains invalid words.")
+        raise click.UsageError("Seed phrase contains invalid words.")
 
 
 def parse_seed_to_int(seed: str) -> int | None:
@@ -44,12 +44,8 @@ def cli():
 def generate(seed: str, password: str):
     wordlist = list(BIP_39_WORDLIST)
     if seed:
-        try:
-            validate_seed_words(seed, wordlist=wordlist)
-        except ValueError as error:
-            raise click.UsageError(str(error))
-    else:
-        seed = generate_random_seed_phrase()
+        validate_seed_words(seed, wordlist=wordlist)
+    seed = generate_random_seed_phrase()
     print("Generated seed phrase: ", seed)
     shares = transform_mnemonic(seed, password, groups=GROUPS)
     validate_mnemonics_reversibility(shares, original_seed=seed, password=password)
