@@ -32,32 +32,38 @@ def cli():
 
 
 @cli.command()
-@click.option("--seed", "-s", default=None)
-@click.option("--password", "-p", default="")
-def generate(seed: str | None, password: str):
+@click.option("--seed", "-s", default="", prompt=True, hide_input=True)
+@click.password_option(default="")
+def generate(seed: str, password: str):
     wordlist = list(BIP_39_WORDLIST)
-    try:
-        if seed:
+    if seed:
+        try:
             validate_seed_words(seed, wordlist=wordlist)
-        else:
-            seed = generate_random_seed_phrase()
-            print("Generated seed phrase:", seed)
-        shares = transform_mnemonic(seed, password, groups=GROUPS)
-        validate_mnemonics_reversibility(shares, original_seed=seed, password=password)
-        print_shares(*shares)
-    except ValueError as e:
-        click.echo(f"Error: {e}", err=True)
+        except ValueError as error:
+            raise click.UsageError(str(error))
+    else:
+        seed = generate_random_seed_phrase()
+    print("Generated seed phrase: ", seed)
+    shares = transform_mnemonic(seed, password, groups=GROUPS)
+    validate_mnemonics_reversibility(shares, original_seed=seed, password=password)
+    print_shares(*shares)
 
 
 @cli.command()
-@click.option("--shares", "-s", multiple=True, required=True)
-@click.option("--password", "-p", required=True, default="")
-def combine(shares: list[str], password: str):
-    try:
-        original_seed = reverse_transform_mnemonic(shares, password)
-        print("Original seed phrase: ", original_seed)
-    except ValueError as e:
-        click.echo(f"Error: {e}", err=True)
+@click.password_option(default="")
+def combine(password: str):
+    shares: list[str] = []
+    while True:
+        share = click.prompt("Enter a share", hide_input=True, default="")
+        if share:
+            shares.append(share)
+        else:
+            break
+    if not shares:
+        raise click.UsageError("No shares provided.")
+
+    original_seed = reverse_transform_mnemonic(shares, password)
+    print("Original seed phrase: ", original_seed)
 
 
 @cli.command()
