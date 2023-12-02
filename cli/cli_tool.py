@@ -26,6 +26,13 @@ def validate_seed_words(seed_phrase: str, *, wordlist: list[str]) -> None:
         raise ValueError("Seed phrase contains invalid words.")
 
 
+def parse_seed_to_int(seed: str) -> int | None:
+    try:
+        return int(seed) if seed else None
+    except ValueError:
+        raise click.UsageError("Seed must be an integer.")
+
+
 @click.group()
 def cli():
     print("Running...")
@@ -78,29 +85,24 @@ def combine(password: str):
     default="",
 )
 def encode_text_in_image(text: str, input_image: str, output_image: str, seed: str):
-    try:
-        seed_int = int(seed) if seed else None
-    except ValueError:
-        raise click.UsageError("Seed must be an integer")
+    range_seed = parse_seed_to_int(seed)
     image = Image.open(input_image)
-    encoded_img = encode_image(text=text, image=image, seed=seed_int)
+    encoded_img = encode_image(text=text, image=image, seed=range_seed)
     encoded_img.save(output_image)
     encoded_img_loaded = Image.open(output_image)
-    decoded_text = decode_image(image=encoded_img_loaded, seed=seed_int)
+    decoded_text = decode_image(image=encoded_img_loaded, seed=range_seed)
     assert text == decoded_text, "Was not able to encode and decode the text"
 
 
 @cli.command()
 @click.option("--input_image", "-i", required=True)
 @click.option("--seed", "-s")
-def decode_text_from_image(input_image: str, seed: int | None = None):
-    try:
-        seed_int = int(seed) if seed else None
-        encoded_img_loaded = Image.open(input_image)
-        decoded_text = decode_image(image=encoded_img_loaded, seed=seed_int)
-        print(decoded_text)
-    except ValueError as e:
-        click.echo(f"Error: {e}", err=True)
+def decode_text_from_image(input_image: str, seed: str):
+    range_seed = parse_seed_to_int(seed)
+    encoded_img_loaded = Image.open(input_image)
+    decoded_text = decode_image(image=encoded_img_loaded, seed=range_seed)
+    print(decoded_text)
+
 
 
 
